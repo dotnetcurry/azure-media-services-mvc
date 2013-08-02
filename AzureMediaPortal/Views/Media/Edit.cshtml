@@ -1,0 +1,59 @@
+﻿@model AzureMediaPortal.Models.MediaElement
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>MediaElement</legend>
+
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.AssetId)
+        @Html.HiddenFor(model => model.FileUrl, new { id = "fileUrl" })
+        @Html.HiddenFor(model => model.UserId)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Title)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Title)
+            @Html.ValidationMessageFor(model => model.Title)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IsPublic)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IsPublic)
+            @Html.ValidationMessageFor(model => model.IsPublic)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div id="videoPlayer">
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/playerframework.min.js"></script>
+    <script src="~/Scripts/media-player.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        mediaPlayer.initFunction("videoPlayer", $("#fileUrl").val());
+
+    </script>
+}

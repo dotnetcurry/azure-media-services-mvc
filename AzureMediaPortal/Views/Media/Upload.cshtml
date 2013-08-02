@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Upload";
+}
+<h2>New Media</h2>
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <legend>Media Element</legend>
+
+        <div class="editor-label">
+            <h3>Select Media File to Upload:</h3>
+        </div>
+        <div class="editor-field">
+            <input type="file" id="selectFile" value=" " />
+            <input type="button" id="fileUpload" name="fileUpload" value="Upload" />
+        </div>
+        <div id="progressBar" style="width: 50%; height: 20px; background-color: grey"></div>
+        <br />
+            <label id="statusMessage"></label>
+    <br />
+    </fieldset>
+}
+<div id="detailsPanel">
+    <input type="hidden" id="assetId" />
+
+    <div>
+        Title <input type="text" id="title" />
+    </div>
+    <button id="saveDetails">Save</button>
+</div>
+
+<div id="videoDisplayPane">
+
+</div>
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@section Scripts {
+    <script src="~/Scripts/media-player.js"></script>
+    <script src="~/Scripts/media-upload.js"></script>
+    <script src="~/Scripts/playerframework.min.js"></script>
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryval")
+}

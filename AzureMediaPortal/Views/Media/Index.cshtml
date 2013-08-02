@@ -1,0 +1,35 @@
+﻿@model IEnumerable<AzureMediaPortal.Models.MediaElement>
+
+@{
+    ViewBag.Title = "My Media Index";
+}
+
+<h2>My Media Index</h2>
+
+<p>
+    @Html.ActionLink("Upload New Media", "Upload")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsPublic)
+        </th>
+        <th></th>
+    </tr>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(@item.Title, "Edit", new { id=item.Id }) 
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsPublic)
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+</table>
