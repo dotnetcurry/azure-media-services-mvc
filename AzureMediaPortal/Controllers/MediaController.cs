@@ -359,11 +359,15 @@ namespace AzureMediaPortal.Controllers
             string mediaAccountKey = ConfigurationManager.AppSettings["MediaAccountKey"];
             string storageAccountName = ConfigurationManager.AppSettings["StorageAccountName"];
             string storageAccountKey = ConfigurationManager.AppSettings["StorageAccountKey"];
+            string storageConnectionString = ConfigurationManager.AppSettings["StorageConnectionString"];
+            string storageContainerReference = ConfigurationManager.AppSettings["StorageContainerReference"];
 
             CloudMediaContext context = new CloudMediaContext(mediaAccountName, mediaAccountKey);
             var storageAccount = new CloudStorageAccount(new StorageCredentials(storageAccountName, storageAccountKey), true);
             var cloudBlobClient = storageAccount.CreateCloudBlobClient();
-            var mediaBlobContainer = cloudBlobClient.GetContainerReference(cloudBlobClient.BaseUri + "temporary-media");
+            var mediaBlobContainer = CloudStorageAccount.Parse(storageConnectionString)
+                .CreateCloudBlobClient()
+                .GetContainerReference(storageContainerReference);
 
             mediaBlobContainer.CreateIfNotExists();
 
